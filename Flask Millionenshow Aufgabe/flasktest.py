@@ -36,7 +36,7 @@ def question():
         feedback = 'Glückwunsch! Du hast alle Fragen richtig beantwortet und das Spiel gewonnen!'
         return render_template('flask_session.html', feedback=feedback)
 
-    questions = millionenshow.read_questions("millionaire.txt")
+    questions = millionenshow.read_questions("Millionenshow Aufgabe/millionaire.txt")
     question = get_random_question(session['level'], questions)
     session['question'] = question
 
