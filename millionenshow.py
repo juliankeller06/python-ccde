@@ -13,7 +13,7 @@ def read_questions(file_name):
     questions = []
     with open(file_name, 'r') as file:
         for line in file:
-            # Ignoriert Zeilen, die mit # beginnen
+            # ignoriert die hashtag zeilen
             if line.startswith("#"):
                 continue
 

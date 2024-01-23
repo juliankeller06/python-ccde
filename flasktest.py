@@ -32,7 +32,7 @@ def index():
 
 @app.route('/question')
 def question():
-    if session['level'] > 5:
+    if session['level'] > 4:
         feedback = 'Glückwunsch! Du hast alle Fragen richtig beantwortet und das Spiel gewonnen!'
         return render_template('flask_session.html', feedback=feedback)
 
@@ -47,17 +47,22 @@ def answer(answer_index):
     question = session['question']
 
     if not question or 'correct_index' not in question.__dict__:
-        return redirect(url_for('question'))  # Redirect to get a new question if there's an issue
+        return redirect(url_for('question'))  # falls fehler, kommt eine neue frage
 
     user_answer = answer_index
     if millionenshow.check_answer(question, user_answer):
-        feedback = 'Fine'
+
+        feedback = "Your answer was right!"
         session['level'] += 1
+        return redirect(url_for('question'))
     else:
-        feedback = 'Wrong answer. Game over!'
+        #feedback von vorheriger version, falls man eine antwort eingibt, sollte man auf eine website weitergeleitet werden
+        # und auf der seite ist das feedback dann dargestellt, ist jetzt aber geupdatet
+        feedback = "Unfortunately a wrong answer! Please take a guess again"
+        return redirect(url_for('question'))
 
 
-    return render_template('flask_session.html', feedback=feedback, question=question, level=session['level'])
+    return render_template('flask_session.html',feedback=feedback, question=question, level=session['level'])
 
 
 
